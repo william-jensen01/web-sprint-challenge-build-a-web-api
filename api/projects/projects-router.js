@@ -15,7 +15,15 @@ router.get('/', (req, res) => {
         .catch(next)
 })
 router.get('/:id', validateProjectId, (req, res, next) => {
-    res.status(200).json(req.project)
+    Projects.get(req.params.id)
+        .then(data => {
+            if (!data) {
+                res.status(404).json({ message: "Sorry, the specified ID does not exist" })
+            } else {
+                res.status(200).json(data)
+            }
+        })
+        .catch(next)
 })
 router.post('/', validateProjectBody, (req, res, next) => {
     Projects.insert(req.body)
