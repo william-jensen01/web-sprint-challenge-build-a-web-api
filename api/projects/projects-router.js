@@ -7,7 +7,7 @@ const { validateProjectId, validateProjectBody } = require('../middleware');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
     Projects.get()
         .then(project => {
             res.status(200).json(project)
